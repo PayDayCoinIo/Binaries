@@ -1,0 +1,21 @@
+#!/bin/bash
+
+wait_pdd_starts() {
+
+        while [ -n "$(pdd ping 2>&1)" ]
+        do
+          echo -n .
+          sleep 0.5
+        done
+	echo
+}
+
+wait_pdd_stops() {
+
+        while [ -z "$(pdd ping 2>&1)" ]
+        do
+          echo -n .
+          sleep 0.5
+        done
+	echo
+}
