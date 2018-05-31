@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ARCH=`lscpu | head -n 1 | awk -F ":" '{print $2}'`
+ARCH=`lscpu | head -n 1 | awk -F ":" '{print $2}' | tr -d '[:space:]'`
 SUDO=`which sudo`
 USER=`whoami`
 UNZIP=`which unzip`
