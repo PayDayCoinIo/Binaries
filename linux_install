@@ -1,6 +1,4 @@
 #!/bin/bash
-LC_ALL="C"
-LANG="en_US.UTF-8"
 
 ARCH=`lscpu | head -n 1 | awk -F ":" '{print $2}' | tr -d '[:space:]'`
 SUDO=`which sudo`
@@ -114,14 +112,34 @@ fi
 if [ "$USER" != "root" ]; then
 check_root
 	if [ "$?" -eq "1" ]; then
-		RUN_AS_ROOT=0
+		CMD_SUDO='sudo'
 	else
 		exit
 	fi
-	CMD_SUDO='sudo'
 else
 	CMD_SUDO=''
-	RUN_AS_ROOT=1
+fi
+
+echo "Configure system language environment.."
+
+EN_LANG=`$CMD_SUDO cat /etc/locale.gen | grep -o "^\s*en_US.UTF-8.*"`
+
+if [ -z "$LANG" ]; then
+        if [ -z "$EN_LANG" ]; then
+                $CMD_SUDO echo en_US.UTF-8 UTF-8 >> /etc/locale.gen
+        fi
+        $CMD_SUDO locale-gen
+        $CMD_SUDO update-locale LANG=en_US.UTF-8
+else
+
+        CUR_LANG=`$CMD_SUDO cat /etc/locale.gen | grep -o "^\s*$LANG.*"`
+        CUR_ENC=`$CMD_SUDO echo "$LANG" | cut -d. -f2`
+
+        if [ -z "$CUR_LANG" ]; then
+                $CMD_SUDO echo "$LANG" "$CUR_ENC" >> /etc/locale.gen
+        fi
+        $CMD_SUDO locale-gen
+        $CMD_SUDO update-locale LANG=$LANG
 fi
 
 if [ "$ARCH" = "x86_64" ]; then
@@ -131,7 +149,7 @@ else
 fi
 
 if [ "$UNZIP" == "" ]; then
-	echo "install unzip"
+	echo "installing unzip.."
 	$CMD_SUDO apt-get -y install unzip > /dev/null 2>&1
 	UNZIP=`which unzip`
 fi
