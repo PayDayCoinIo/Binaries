@@ -1,0 +1,30 @@
+#!/bin/bash
+wait_pdd_stops() {
+        pidof pdd > /dev/null
+        if (( $? == 1 ))
+        then
+                return
+        fi
+        pdd getinfo  >/dev/null 2>&1
+        while ((  $? == 0 ))
+        do
+          echo -n .
+          sleep 0.5
+          pdd getinfo >/dev/null 2>&1
+        done
+        echo
+}
+pdd stop
+
+wait_pdd_stops
+
+cd /tmp
+rm /tmp/pdd
+curl -L https://github.com/PayDayCoinIo/Binaries/raw/develop/OnAirRestart/pdd-x64 -o /tmp/pdd
+#unzip /tmp/pdd_update.zip -d /tmp
+#rm /tmp/pdd_update.zip
+chmod +x /tmp/pdd
+cp /tmp/pdd /usr/local/bin/pdd
+cp /tmp/pdd `which pdd`
+
+pdd  -daemon
