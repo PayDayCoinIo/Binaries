@@ -2,6 +2,7 @@
 
 wait_pdd_starts() {
 
+	sleep 2
         while [ -n "$(pdd ping 2>&1)" ]
         do
           echo -n .
