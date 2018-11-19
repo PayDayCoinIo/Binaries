@@ -143,9 +143,9 @@ else
 fi
 
 if [ "$ARCH" = "x86_64" ]; then
-	curl -L https://github.com/PayDayCoinIo/Binaries/raw/master/PayDayCoinDaemonLinux_x86.zip -o /tmp/payday.zip
-else
 	curl -L https://github.com/PayDayCoinIo/Binaries/raw/master/PayDayCoinDaemonLinux_x64.zip -o /tmp/payday.zip
+else
+	curl -L https://github.com/PayDayCoinIo/Binaries/raw/master/PayDayCoinDaemonLinux_x86.zip -o /tmp/payday.zip
 fi
 FILE=/tmp/payday.zip
 
