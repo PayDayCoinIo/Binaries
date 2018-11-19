@@ -171,7 +171,7 @@ $CMD_SUDO ln -s /usr/local/bin/pdd /usr/bin/pdd
 $CMD_SUDO curl -sL https://raw.githubusercontent.com/PayDayCoinIo/Binaries/master/scripts/pdd_sure_run -o /usr/local/bin/pdd_sure_run
 $CMD_SUDO chmod +x /usr/local/bin/pdd_sure_run
 $CMD_SUDO mkdir -p /usr/local/lib/pdd/
-$CMD_SUDO curl -sL https://raw.githubusercontent.com/PayDayCoinIo/Binaries/master/scripts/utils -o /usr/local/lib/pdd/pdd_utils
+$CMD_SUDO curl -sL https://raw.githubusercontent.com/PayDayCoinIo/Binaries/master/scripts/utils -o /usr/local/lib/pdd/utils
 $CMD_SUDO chmod +x /usr/local/lib/pdd/utils
 
 $CMD_SUDO rm /tmp/pdd
