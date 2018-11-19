@@ -2,7 +2,7 @@
 
 wait_pdd_starts() {
 
-	sleep 2
+	sleep 5
         while [ -n "$(pdd ping 2>&1)" ]
         do
           echo -n .
@@ -12,7 +12,7 @@ wait_pdd_starts() {
 }
 
 wait_pdd_stops() {
-
+	sleep 5
         while [ -z "$(pdd ping 2>&1)" ]
         do
           echo -n .
