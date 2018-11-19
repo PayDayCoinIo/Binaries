@@ -187,4 +187,6 @@ else
 	echo "If you want to configure Masternode, run this script again: ./linux_install masternode"
 fi
 
+pdd_sure_run
+
 echo "PayDayCoin Node successfull installing. To run - print command: pdd "
