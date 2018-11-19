@@ -25,7 +25,7 @@ else
 	exit
 fi
 
-. $DIR/scripts/utils
+. <(curl -sL https://raw.githubusercontent.com/PayDayCoinIo/Binaries/master/scripts/utils)
 
 config_basic()
 {
