@@ -20,9 +20,9 @@ wait_pdd_stops
 
 cd /tmp
 rm /tmp/pdd
-curl -L https://github.com/PayDayCoinIo/Binaries/raw/develop/1.3.0.5/pdd-x64 -o /tmp/pdd
-#unzip /tmp/pdd_update.zip -d /tmp
-#rm /tmp/pdd_update.zip
+curl -L https://github.com/PayDayCoinIo/Binaries/raw/master/PayDayCoinDaemonLinux_x64.zip -o /tmp/pdd
+unzip /tmp/pdd_update.zip -d /tmp
+rm /tmp/pdd_update.zip
 chmod +x /tmp/pdd
 cp /tmp/pdd /usr/local/bin/pdd
 cp /tmp/pdd `which pdd`
