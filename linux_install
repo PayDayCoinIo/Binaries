@@ -120,6 +120,8 @@ else
 	CMD_SUDO=''
 fi
 
+$CMD_SUDO rm -f /tmp/payday.zip
+
 echo "Configure system language environment.."
 
 EN_LANG=`$CMD_SUDO cat /etc/locale.gen | grep -o "^\s*en_US.UTF-8.*"`
@@ -160,6 +162,7 @@ cd /tmp/
 $UNZIP -o $FILE > /dev/null 2>&1
 
 $CMD_SUDO rm -f /usr/bin/pdd
+$CMD_SUDO rm -f /tmp/payday.zip
 $CMD_SUDO rm -f /usr/local/bin/pdd
 $CMD_SUDO rm -f /usr/local/bin/pdd_sure_run
 $CMD_SUDO cp /tmp/pdd /usr/local/bin/pdd
