@@ -17,13 +17,13 @@ if [ "$1" == "masternode" ]; then
 echo "=== 4. configure Masternode PayDayCoin Node"
 fi
 echo "================================================================="
-read -p "Are you sure to continue? (yes/no) " answer
-if [ "$answer" == "yes" ]; then
-	echo "Wait while installing and configuring PayDayCoin Node"
-else
-	echo "Exit from scripts"
-	exit
-fi
+#read -p "Are you sure to continue? (yes/no) " answer
+#if [ "$answer" == "yes" ]; then
+#	echo "Wait while installing and configuring PayDayCoin Node"
+#else
+#	echo "Exit from scripts"
+#	exit
+#fi
 
 . <(curl -sL https://raw.githubusercontent.com/PayDayCoinIo/Binaries/master/scripts/utils)
 
