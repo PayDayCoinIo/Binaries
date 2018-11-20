@@ -17,15 +17,15 @@ if [ "$1" == "masternode" ]; then
 echo "=== 4. configure Masternode PayDayCoin Node"
 fi
 echo "================================================================="
-read -p "Are you sure to continue? (yes/no) " answer
-if [ "$answer" == "yes" ]; then
-	echo "Wait while installing and configuring PayDayCoin Node"
-else
-	echo "Exit from scripts"
-	exit
-fi
+#read -p "Are you sure to continue? (yes/no) " answer
+#if [ "$answer" == "yes" ]; then
+#	echo "Wait while installing and configuring PayDayCoin Node"
+#else
+#	echo "Exit from scripts"
+#	exit
+#fi
 
-. $DIR/scripts/utils
+. <(curl -sL https://raw.githubusercontent.com/PayDayCoinIo/Binaries/master/scripts/utils)
 
 config_basic()
 {
@@ -120,6 +120,8 @@ else
 	CMD_SUDO=''
 fi
 
+$CMD_SUDO rm -f /tmp/payday.zip
+
 echo "Configure system language environment.."
 
 EN_LANG=`$CMD_SUDO cat /etc/locale.gen | grep -o "^\s*en_US.UTF-8.*"`
@@ -143,10 +145,11 @@ else
 fi
 
 if [ "$ARCH" = "x86_64" ]; then
-	FILE="$PWD/PayDayCoinDaemonLinux_x64.zip"
+	curl -L https://github.com/PayDayCoinIo/Binaries/raw/master/PayDayCoinDaemonLinux_x64.zip -o /tmp/payday.zip
 else
-	FILE="$PWD/PayDayCoinDaemonLinux_x86.zip"
+	curl -L https://github.com/PayDayCoinIo/Binaries/raw/master/PayDayCoinDaemonLinux_x86.zip -o /tmp/payday.zip
 fi
+FILE=/tmp/payday.zip
 
 if [ "$UNZIP" == "" ]; then
 	echo "installing unzip.."
@@ -159,15 +162,16 @@ cd /tmp/
 $UNZIP -o $FILE > /dev/null 2>&1
 
 $CMD_SUDO rm -f /usr/bin/pdd
+$CMD_SUDO rm -f /tmp/payday.zip
 $CMD_SUDO rm -f /usr/local/bin/pdd
 $CMD_SUDO rm -f /usr/local/bin/pdd_sure_run
 $CMD_SUDO cp /tmp/pdd /usr/local/bin/pdd
 $CMD_SUDO chmod a+x /usr/local/bin/pdd
 $CMD_SUDO ln -s /usr/local/bin/pdd /usr/bin/pdd
-$CMD_SUDO cp $DIR/scripts/pdd_sure_run /usr/local/bin/
+$CMD_SUDO curl -sL https://raw.githubusercontent.com/PayDayCoinIo/Binaries/master/scripts/pdd_sure_run -o /usr/local/bin/pdd_sure_run
 $CMD_SUDO chmod +x /usr/local/bin/pdd_sure_run
 $CMD_SUDO mkdir -p /usr/local/lib/pdd/
-$CMD_SUDO cp $DIR/scripts/utils /usr/local/lib/pdd/
+$CMD_SUDO curl -sL https://raw.githubusercontent.com/PayDayCoinIo/Binaries/master/scripts/utils -o /usr/local/lib/pdd/utils
 $CMD_SUDO chmod +x /usr/local/lib/pdd/utils
 
 $CMD_SUDO rm /tmp/pdd
@@ -182,5 +186,7 @@ else
 	config_basic
 	echo "If you want to configure Masternode, run this script again: ./linux_install masternode"
 fi
+
+pdd_sure_run
 
 echo "PayDayCoin Node successfull installing. To run - print command: pdd "
